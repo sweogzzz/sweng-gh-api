@@ -1,21 +1,43 @@
 # Metric Visualization
 
+Project goals:
+- Fetch github data
+- Visualize the data
+
+Finished code:
+1. Takes a query for a repo
+2. Makes four api calls to github
+    - Repo details
+    - Repo commits details
+    - Repo languages details
+    - Repo contributions details
+3. Plots four graphs
+    - Radar chart using a rating system
+    - Line chart of recent commits
+    - Doughnut chart of contributions
+    - Doughnut chart of languages
+3. Can take more queries after
+
+Special features include:
+1. Auth with `axios`
+2. Graphs with `chart.js`
+
 ## Setup
+
+Required: nodejs/npm and api token.
 
 ### `./.env`
 
+Authenticates.
 1. Create this file in the root.
 2. Define `REACT_APP_SECRET=yourtokenhere`
-3. Get your token from GitHub:
-    1. Sign in, go to 'settings'\'developer settings'.
-    2. Generate a Personal Access Token specifically.
-    3. Copy the token and paste it into the file.
-
-This will authenticate the app.
+3. Sign in, go to settings\\developer settings.
+4. Generate a Personal Access Token specifically.
+5. Copy the token and paste it into the file.
 
 ### `npm start`
 
-This will start the app.
+Starts the application.
 
 # Getting Started with Create React App
 
