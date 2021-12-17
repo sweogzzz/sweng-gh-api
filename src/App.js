@@ -198,7 +198,7 @@ class App extends Component {
           </div>
         </form>
         <br></br>
-        <h4>Owner: {this.state.name}</h4>
+        <h4>Owner: {this.state.repo?this.state.name:'n/a'}</h4>
         <img width="100" src={this.state.repo ? this.state.repo.owner.avatar_url : null} alt="avatar.png" />
         <div>
           <h5>
