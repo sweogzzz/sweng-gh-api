@@ -1,3 +1,20 @@
+# Software Engineering Metric Visualization
+
+## Setup
+
+### Authentication
+
+Authentication is needed for this app. \
+To get an authentication token:
+1. Sign into your GitHub.
+2. Go to 'settings'\'Developer Settings'
+3. Generate a Personal Access Token
+4. Copy and paste the token into src/App.js
+
+### `npm start`
+
+This will start the app.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
