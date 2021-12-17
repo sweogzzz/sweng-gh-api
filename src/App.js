@@ -1,5 +1,35 @@
 import React from 'react';
 import axios from 'axios';
+import 'date-fns';
+import 'chartjs-adapter-date-fns';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  ArcElement,
+  LineElement,
+  PointElement,
+  RadialLinearScale,
+  TimeScale
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  ArcElement,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip,
+  Legend,
+  RadialLinearScale,
+  TimeScale
+)
 
 class App extends React.Component {
   submitHandle(e) {
@@ -52,30 +82,40 @@ class App extends React.Component {
     this.submitHandle = this.submitHandle.bind(this);
   }
   render() {
+    var i;
+    var a;
+    var b;
     var coms1 = [];
     var coms2 = [];
     for (i in this.state.coms) {
       a = this.state.coms[i].commit.author.date;
-      b = new Date(a.substring(0, 10));
+      b = new Date(a);
       coms1.push(b.getTime());
     }
-    for (i in coms1) {
+    for (i of coms1) {
       if (coms2[i]) coms2[i] += 1;
       else coms2[i] = 1;
     }
-    coms1 = [...new Set(coms1)].sort()
+    coms1 = coms1.sort();
+    coms1 = [...new Set(coms1)];
     var coms3 = coms1.map(a => coms2[a]);
     var coms4 = coms3.map((a => b => a += b)(0));
     var comsf = {
       labels: coms1,
       datasets: [{
-        label: 'total commits',
-        data: coms3,
-        borderWidth: 1
-      }, {
         label: 'new commits',
+        data: coms3,
+        borderWidth: 1,
+        borderColor: 'blue',
+        cubicInterpolationMode: 'monotone',
+        tension: 0.4
+      }, {
+        label: 'total commits',
         data: coms4,
-        borderWidth: 1
+        borderWidth: 1,
+        borderColor: 'red',
+        cubicInterpolationMode: 'monotone',
+        tension: 0.4
       }]
     }
     var lans1 = Object.keys(this.state.lans);
@@ -134,6 +174,44 @@ class App extends React.Component {
           this.state.repo ?
             this.state.repo.owner.login : ''
         }</h3>
+        <div>
+          <div id="frame">
+            {this.state.coms?<Line
+              data={comsf}
+              options={{
+                elements: {
+                  point: {
+                    radius: 0
+                  }
+                },
+                plugins: {
+                  title: {
+                    display: false
+                  }
+                },
+                scales: {
+                  x: {
+                    type: 'time',
+                    time: {
+                      unit: 'hour'
+                    }
+                  }
+                },
+                interaction: {
+                  intersect: false
+                }
+              }
+            }
+            height={200}
+            /> : 'No data'}
+          </div>
+          <div id="frame">
+            { }
+          </div>
+          <div id="frame">
+            { }
+          </div>
+        </div>
       </div>
     )
   }
