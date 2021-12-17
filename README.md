@@ -1,5 +1,7 @@
 # Metric Visualization
 
+## In this README.md you will find a demonstration of the project as well as setup instructions
+
 Project goals:
 - Fetch github data
 - Visualize the data
