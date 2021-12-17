@@ -31,20 +31,20 @@ Special features include:
 
 How the web app looks when started.
 
-![screen1.png](Image 'screenshots/screen1.png')
+![screen1.png](screenshots/screen1.png)
 
 ### Screenshot 2
 
 Chartsjs comes with interpolation.\
 For nicer looking line graphs.
 
-![screen2.png](Image 'screenshots/screen2.png')
+![screen2.png](screenshots/screen2.png)
 
 ### Screenshot 3
 
 Some analysis I did on this repo.
 
-![screen3.png](Image 'screenshots/screen3.png')
+![screen3.png](screenshots/screen3.png)
 
 ### Screenshot 4
 
@@ -64,7 +64,7 @@ Going in order up/down left/right:
     - also making use of shell utilities
     - interesting takeaway about hobbies
 
-![screen4.png](Image 'screenshots/screen4.png')
+![screen4.png](screenshots/screen4.png)
 
 ### Screenshot 5
 
@@ -81,7 +81,7 @@ Another repo `imdbpy`:
     - makefile takes little space
     - makes sense it would
 
-![screen5.png](Image 'screenshots/screen5.png')
+![screen5.png](screenshots/screen5.png)
 
 ### Screenshot 6
 
@@ -90,7 +90,7 @@ View of a commit at 9pm
 - Peer into work ethic
 - Conversely, bad habits
 
-![screen6.png](Image 'screenshots/screen6.png')
+![screen6.png](screenshots/screen6.png)
 
 ### Screenshot 7
 
@@ -101,13 +101,13 @@ Nice example of a good rating.
 - Still, smaller code can be a good thing
 - Left to the user to interpret the graphs
 
-![screen7.png](Image 'screenshots/screen7.png')
+![screen7.png](screenshots/screen7.png)
 
 ### Screenshot 8
 
 Another look at the statistics.
 
-![screen8.png](Image 'screenshots/screen8.png')
+![screen8.png](screenshots/screen8.png)
 
 ### Screenshot 9
 
@@ -117,25 +117,25 @@ Large codebase, good ratings.\
 - Commits come in spikes
 - Helps avoid clutter
 
-![screen9.png](Image 'screenshots/screen9.png')
+![screen9.png](screenshots/screen9.png)
 
 ### Screenshot 10
 
 Clear view of the most active contributors.
 
-![screen10.png](Image 'screenshots/screen10.png')
+![screen10.png](screenshots/screen10.png)
 
 ### Screenshot 11
 
 Nice and slightly different repo.
 
-![screen11.png](Image 'screenshots/screen11.png')
+![screen11.png](screenshots/screen11.png)
 
 ### Screenshot 12
 
 Another repository, cool stats.
 
-![screen12.png](Image 'screenshots/screen12.png')
+![screen12.png](screenshots/screen12.png)
 
 ### Screenshot 13
 
