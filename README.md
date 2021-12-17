@@ -1,15 +1,17 @@
-# Software Engineering Metric Visualization
+# Metric Visualization
 
 ## Setup
 
-### Authentication
+### `./.env`
 
-Authentication is needed for this app. \
-To get an authentication token:
-1. Sign into your GitHub.
-2. Go to 'settings'\'Developer Settings'
-3. Generate a Personal Access Token
-4. Copy and paste the token into src/App.js
+1. Create this file in the root.
+2. Define `REACT_APP_SECRET=yourtokenhere`
+3. Get your token from GitHub:
+    1. Sign in, go to 'settings'\'developer settings'.
+    2. Generate a Personal Access Token specifically.
+    3. Copy the token and paste it into the file.
+
+This will authenticate the app.
 
 ### `npm start`
 
