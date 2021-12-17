@@ -21,6 +21,134 @@ Finished code:
 Special features include:
 1. Auth with `axios`
 2. Graphs with `chart.js`
+    - Adjusting dates for timelines
+    - Filtering of data
+    - Animations
+
+## Demo
+
+### Screenshot 1
+
+How the web app looks when started.
+
+![screen1.png](Image 'screenshots/screen1.png')
+
+### Screenshot 2
+
+Chartsjs comes with interpolation.\
+For nicer looking line graphs.
+
+![screen2.png](Image 'screenshots/screen2.png')
+
+### Screenshot 3
+
+Some analysis I did on this repo.
+
+![screen3.png](Image 'screenshots/screen3.png')
+
+### Screenshot 4
+
+Moving onto another repository...\
+`lmammino/public-transport-ireland`\
+Going in order up/down left/right:
+1. lmammino's repo gets attention
+    - radar emphasizes watching/starreds
+    - also a fair size rating
+2. lmammino took a week break
+    - timeline shows a gap between commits
+    - dates describe that gap well
+3. lmammino had little help
+    - could have not been collaborative
+    - could be efficient on their own
+4. lmammino is familiar with typescript
+    - also making use of shell utilities
+    - interesting takeaway about hobbies
+
+![screen4.png](Image 'screenshots/screen4.png')
+
+### Screenshot 5
+
+Another repo `imdbpy`:
+1. Lots of traffic, forks & commits
+    - issue also show engagement
+    - peaked watching rating
+2. Curve of commits late August
+    - potential development cycle
+    - shows organization skills
+3. Two users share most of traffic
+    - pair programming perhaps
+4. Distinct focus on python
+    - makefile takes little space
+    - makes sense it would
+
+![screen5.png](Image 'screenshots/screen5.png')
+
+### Screenshot 6
+
+In the same repo from screen 5...\
+View of a commit at 9pm
+- Peer into work ethic
+- Conversely, bad habits
+
+![screen6.png](Image 'screenshots/screen6.png')
+
+### Screenshot 7
+
+The repository `microsoft/terminal`.\
+Nice example of a good rating.
+- Peak ratings besides size
+- Size was made to have a steep curve
+- Still, smaller code can be a good thing
+- Left to the user to interpret the graphs
+
+![screen7.png](Image 'screenshots/screen7.png')
+
+### Screenshot 8
+
+Another look at the statistics.
+
+![screen8.png](Image 'screenshots/screen8.png')
+
+### Screenshot 9
+
+The repository `git/git`.\
+Large codebase, good ratings.\
+- Healthy distribution of users/langs.
+- Commits come in spikes
+- Helps avoid clutter
+
+![screen9.png](Image 'screenshots/screen9.png')
+
+### Screenshot 10
+
+Clear view of the most active contributors.
+
+![screen10.png](Image 'screenshots/screen10.png')
+
+### Screenshot 11
+
+Nice and slightly different repo.
+
+![screen11.png](Image 'screenshots/screen11.png')
+
+### Screenshot 12
+
+Another repository, cool stats.
+
+![screen12.png](Image 'screenshots/screen12.png')
+
+### Screenshot 13
+
+Repository with steady production.
+- Consistent commits past two weeks.
+- Use of a trio of core langs.
+
+![screen13.png](Image 'screenshots/screen13.png')
+
+### Screenshot 14
+
+Example of filtering data.\
+Click entries in the legend.
 
 ## Setup
 
