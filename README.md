@@ -7,7 +7,7 @@ Project goals:
 - Visualize the data
 
 Finished code:
-1. Takes a query for a repo
+1. Takes a queries for repos
 2. Makes four api calls to github
     - Repo details
     - Repo commits details
@@ -18,10 +18,10 @@ Finished code:
     - Line chart of recent commits
     - Doughnut chart of contributions
     - Doughnut chart of languages
-3. Can take more queries after
 
 Special features include:
 1. Auth with `axios`
+2. Error handling
 2. Graphs with `chart.js`
     - Adjusting dates for timelines
     - Filtering of data

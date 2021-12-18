@@ -45,8 +45,10 @@ class App extends Component {
     });
 
     var q = e.target.query.value;
-    if (!(/[a-zA-Z0-9]+\/[a-zA-Z0-9]+/.test(q))) return;
-
+    if (!(/[a-zA-Z0-9][a-zA-Z0-9-]{0,38}[a-zA-Z0-9]\/[a-zA-Z0-9-_]{0,100}/.test(q))) {
+      console.log(toString(q).match(/[a-zA-Z0-9][a-zA-Z0-9-]{0,38}[a-zA-Z0-9]\/[a-zA-Z0-9-_]{0,100}/));
+      return;
+    }
     this.setState({name:q.split('/')[0]})
 
     axios.get('https://api.github.com/repos/' + q,
@@ -205,7 +207,7 @@ class App extends Component {
             Repository stats
           </h5>
           <p>
-            1-5 scale based on min/max figures
+            Rates various attributes
           </p>
           <div id="frame">
             {this.state.repo? <Radar
