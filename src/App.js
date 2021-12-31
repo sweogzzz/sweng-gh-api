@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import GitHub from 'github-api';
 import axios from 'axios';
 import 'date-fns';
 import 'chartjs-adapter-date-fns';
@@ -36,11 +37,16 @@ class App extends Component {
     e.preventDefault();
     const token = process.env.REACT_APP_SECRET;
 
+    const gh = new GitHub({
+      token: token
+    });
+
     this.setState({
       repo: '',
       lans: '',
       cons: '',
       coms: '',
+      comsh: '',
       name: ''
     });
 
@@ -49,7 +55,14 @@ class App extends Component {
       console.log(toString(q).match(/[a-zA-Z0-9][a-zA-Z0-9-]{0,38}[a-zA-Z0-9]\/[a-zA-Z0-9-_]{0,100}/));
       return;
     }
-    this.setState({name:q.split('/')[0]})
+    //this.setState({name:q.split('/')[0]})
+
+    let test = this;
+
+    gh.getUser(q.split('/')[0])
+    .getProfile(function(err,user) {
+      test.setState({name:user['name']})
+    })
 
     axios.get('https://api.github.com/repos/' + q,
       { headers: { 'Authorization': `token ${token}` } })
@@ -68,7 +81,8 @@ class App extends Component {
 
     axios.get('https://api.github.com/repos/' + q + '/commits',
       { headers: { 'Authorization': `token ${token}` } })
-      .then(response => this.setState({ coms: response.data }))
+      .then(response => this.setState({ coms: response.data,
+        comsh: response.headers }))
       .catch((err) => { console.log(err) });
   }
   componentDidMount() {
