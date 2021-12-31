@@ -52,7 +52,8 @@ class App extends Component {
       cons: '',
       coms: '',
       comsh: '',
-      name: ''
+      name: '',
+      commitAuthors: ''
     });
 
     var q = e.target.query.value;
@@ -109,6 +110,12 @@ class App extends Component {
       per_page: 100,
       page: 2
     }).then(response => this.setState({coms:response.data}))
+    ok.paginate('GET /repos/{owner}/{repo}/commits',
+      {owner:qarr[0],repo:qarr[1],per_page:100},
+      (response) => response.data.map((commit) => commit.commit.author.date)
+    ).then((commitAuthors) => {
+      this.setState({commitAuthors:commitAuthors});
+    })
     /*ok.paginate('GET /repos/{owner}/{repo}/commits', {
       owner: qarr[0],
       repo: qarr[1],
@@ -116,12 +123,17 @@ class App extends Component {
     }).then((commits) => {
       console.log(commits)
     })*/
-    ok.paginate('GET /repos/{owner}/{repo}/commits',
+    /*ok.paginate('GET /repos/{owner}/{repo}/commits',
       { owner: qarr[0], repo: qarr[1], per_page: 100},
       (response) => response.data.map((commit) => commit.author)
     ).then((commitAuthors) => {
       console.log(commitAuthors);
-    })
+    })*/
+    /*ok.request('GET /repos/{owner}/{repo}/commits',
+      { owner: qarr[0], repo: qarr[1], per_page: 100}
+    ).then((names) => {
+      console.log(names.data[0].author);
+    })*/
     ok.rest.repos.listLanguages({
       owner: qarr[0],
       repo: qarr[1]
@@ -160,9 +172,10 @@ class App extends Component {
 
     var comsd = [];
     var comsn = {};
-    for (var i in this.state.coms) {
-      var dtxt = this.state.coms[i].commit.author.date;
-      comsd.push((new Date(dtxt)).getTime());
+    for (var i in this.state.commitAuthors) {
+      //var dtxt = this.state.coms[i].commit.author.date;
+      //comsd.push((new Date(dtxt)).getTime());
+      comsd.push((new Date(this.state.commitAuthors[i])).getTime());
     }
     comsd.sort();
     for (let e of comsd) {
