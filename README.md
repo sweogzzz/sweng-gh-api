@@ -4,7 +4,11 @@
 
 Notes:
 - Setup section if after demo section with screenshots
-- `src/quickstart.bat` for easy startup (requires npm for Windows)
+- `quickstart.bat` for easy startup (requires npm for Windows)
+    - Open in file explorer on Windows
+    - `./quickstart.bat` in powershell
+- `quickstart.sh` for easy startup (requires npm for linux)
+    - `./quickstart.sh` in bash terminal
 
 Project goals:
 - Fetch github data
