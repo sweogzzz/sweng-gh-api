@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GitHub from 'github-api';
+import {Octokit} from '@octokit/rest';
 import axios from 'axios';
 import 'date-fns';
 import 'chartjs-adapter-date-fns';
@@ -41,6 +42,10 @@ class App extends Component {
       token: token
     });
 
+    const ok = new Octokit({
+      auth: token
+    })
+
     this.setState({
       repo: '',
       lans: '',
@@ -71,12 +76,11 @@ class App extends Component {
       .then(response => this.setState({ repo: response.data }))
       .catch((err) => { console.log(err) });
 
-    axios.get('https://api.github.com/repos/' + q + '/languages',
+    /*axios.get('https://api.github.com/repos/' + q + '/languages',
       { headers: { 'Authorization': `token ${token}` } })
       .then(response => this.setState({ lans: response.data }))
       .catch((err) => { console.log(err) });
-
-    /*axios.get('https://api.github.com/repos/' + q + '/contributors',
+    axios.get('https://api.github.com/repos/' + q + '/contributors',
       { headers: { 'Authorization': `token ${token}` } })
       .then(response => this.setState({ cons: response.data }))
       .catch((err) => { console.log(err) });*/
@@ -87,18 +91,47 @@ class App extends Component {
         comsh: response.headers }))
       .catch((err) => { console.log(err) });*/
 
-    gh.getRepo(qarr[0],qarr[1])
+    /*gh.getRepo(qarr[0],qarr[1])
     .getContributors(function(err,out) {
       test.setState({cons:out})
     })
-
     var therepo = gh.getRepo(qarr[0],qarr[1]);
     therepo.getContributors(function(err,out) {
       test.setState({cons:out})
     })
-    therepo.listCommits(function(err,out) {
+    therepo.listCommits({state:'all',since:'1/1/2000',until:'1/1/2021'},function(err,out) {
       test.setState({coms:out})
+    })*/
+
+    ok.rest.repos.listCommits({
+      owner: qarr[0],
+      repo: qarr[1],
+      per_page: 100,
+      page: 2
+    }).then(response => this.setState({coms:response.data}))
+    /*ok.paginate('GET /repos/{owner}/{repo}/commits', {
+      owner: qarr[0],
+      repo: qarr[1],
+      per_page: 100
+    }).then((commits) => {
+      console.log(commits)
+    })*/
+    ok.paginate('GET /repos/{owner}/{repo}/commits',
+      { owner: qarr[0], repo: qarr[1], per_page: 100},
+      (response) => response.data.map((commit) => commit.author)
+    ).then((commitAuthors) => {
+      console.log(commitAuthors);
     })
+    ok.rest.repos.listLanguages({
+      owner: qarr[0],
+      repo: qarr[1]
+    }).then(response => this.setState({lans:response.data}))
+    ok.rest.repos.listContributors({
+      owner: qarr[0],
+      repo: qarr[1],
+      per_page: 100,
+      page: 1
+    }).then(response => this.setState({cons:response.data}))
   }
   componentDidMount() {
     document.title = "Metrics"

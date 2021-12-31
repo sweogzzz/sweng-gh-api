@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@octokit/rest": "^18.12.0",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
@@ -11,6 +12,7 @@
     "chartjs-adapter-date-fns": "^2.0.0",
     "date-fns": "^2.27.0",
     "github-api": "^3.4.0",
+    "octokit": "^1.7.1",
     "react": "^17.0.2",
     "react-chartjs-2": "^4.0.0",
     "react-dom": "^17.0.2",

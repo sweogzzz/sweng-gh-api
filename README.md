@@ -1,21 +1,14 @@
 # Metric Visualization
 
-Project goals:
-- Fetch github data
-- Visualize the data
+Scroll down for screenshots/demo
 
-Finished code:
-1. Takes queries for repos
-2. Makes api calls to github
-    - Repo details
-    - Repo commits details
-    - Repo languages details
-    - Repo contributions details
-3. Plots graphs
-    - Radar chart using a rating system
-    - Line chart of recent commits
-    - Doughnut chart of contributions
-    - Doughnut chart of languages
+Dependencies:
+- `charts.js` and `react` for ui
+- `@octokit/rest` to query GitHub API
+
+Old Dependencies:
+- `github-api`
+- `axios`
 
 ## Setup
 
