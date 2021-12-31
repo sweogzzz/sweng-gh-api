@@ -1,39 +1,21 @@
 # Metric Visualization
 
-Important to note:
-- Setup section after demo section & screenshots
-- `quickstart.bat` for easy startup (requires npm for Windows)
-    - Open in file explorer on Windows
-    - `./quickstart.bat` in powershell
-- `quickstart.sh` for easy startup (requires npm for linux)
-    - `./quickstart.sh` in bash terminal
-
 Project goals:
 - Fetch github data
 - Visualize the data
 
 Finished code:
-1. Takes a queries for repos
-2. Makes four api calls to github
+1. Takes queries for repos
+2. Makes api calls to github
     - Repo details
     - Repo commits details
     - Repo languages details
     - Repo contributions details
-3. Plots four graphs
+3. Plots graphs
     - Radar chart using a rating system
     - Line chart of recent commits
     - Doughnut chart of contributions
     - Doughnut chart of languages
-
-Special features include:
-1. Auth with `axios`
-2. Graphs with `chart.js`
-    - Adjusting dates for timelines
-    - Filtering of data
-    - Animations
-3. Error handling
-    - queries regex
-    - chart generation
 
 ## Setup
 
@@ -49,8 +31,14 @@ Required: nodejs/npm and api token.
 
 ### Startup
 
-1. `Via quickstart.bat` or `quickstart.sh`
-2. Call `npm start` in a terminal
+`npm start` can be called.
+
+These scripts can be employed:
+- `quickstart.bat` for easy startup (requires npm for Windows)
+    - Open in file explorer on Windows
+    - `./quickstart.bat` in powershell
+- `quickstart.sh` for easy startup (requires npm for linux)
+    - `./quickstart.sh` in bash terminal
 
 ## Demo
 
@@ -176,3 +164,5 @@ Repository with steady production.
 
 Example of filtering data.\
 Click entries in the legend.
+
+![screen14.png](./screenshots/screen14.png)

@@ -59,9 +59,11 @@ class App extends Component {
 
     let test = this;
 
-    gh.getUser(q.split('/')[0])
-    .getProfile(function(err,user) {
-      test.setState({name:user['name']})
+    var qarr = q.split('/');
+
+    gh.getUser(qarr[0])
+    .getProfile(function(err,out) {
+      test.setState({name:out['name']})
     })
 
     axios.get('https://api.github.com/repos/' + q,
@@ -74,16 +76,29 @@ class App extends Component {
       .then(response => this.setState({ lans: response.data }))
       .catch((err) => { console.log(err) });
 
-    axios.get('https://api.github.com/repos/' + q + '/contributors',
+    /*axios.get('https://api.github.com/repos/' + q + '/contributors',
       { headers: { 'Authorization': `token ${token}` } })
       .then(response => this.setState({ cons: response.data }))
-      .catch((err) => { console.log(err) });
+      .catch((err) => { console.log(err) });*/
 
-    axios.get('https://api.github.com/repos/' + q + '/commits',
+    /*axios.get('https://api.github.com/repos/' + q + '/commits',
       { headers: { 'Authorization': `token ${token}` } })
       .then(response => this.setState({ coms: response.data,
         comsh: response.headers }))
-      .catch((err) => { console.log(err) });
+      .catch((err) => { console.log(err) });*/
+
+    gh.getRepo(qarr[0],qarr[1])
+    .getContributors(function(err,out) {
+      test.setState({cons:out})
+    })
+
+    var therepo = gh.getRepo(qarr[0],qarr[1]);
+    therepo.getContributors(function(err,out) {
+      test.setState({cons:out})
+    })
+    therepo.listCommits(function(err,out) {
+      test.setState({coms:out})
+    })
   }
   componentDidMount() {
     document.title = "Metrics"
