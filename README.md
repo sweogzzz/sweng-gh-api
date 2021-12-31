@@ -2,6 +2,10 @@
 
 ## In this README.md you will find a demonstration of the project as well as setup instructions
 
+Notes:
+- Setup section if after demo section with screenshots
+- `src/quickstart.bat` for easy startup (requires npm for Windows)
+
 Project goals:
 - Fetch github data
 - Visualize the data
@@ -21,11 +25,13 @@ Finished code:
 
 Special features include:
 1. Auth with `axios`
-2. Error handling
 2. Graphs with `chart.js`
     - Adjusting dates for timelines
     - Filtering of data
     - Animations
+3. Error handling
+    - queries regex
+    - chart generation
 
 ## Demo
 
