@@ -2,10 +2,8 @@ FROM node
 
 WORKDIR /app
 
-COPY package.json ./
-COPY package-lock.json ./
-RUN npm install --silent
-
 COPY . ./
+
+RUN npm install --silent
 
 CMD ["npm","start"]

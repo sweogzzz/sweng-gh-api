@@ -20,12 +20,23 @@ Required: nodejs/npm and api token.
 
 ### Startup
 
-Manual instructions:
+##### Options
+- `docker-compose` setup
+- `.bat`/`.sh` scripts
+
+The scripts publish to a port. \
+This needs to be done to view everything.
+
+###### Manual instructions:
 1. Open a terminal in `./src`
 2. `docker build -t sample .`
 3. Open the container
 
-Scripts instructions:
+###### Compose instructions:
+1. `docker-compose up`
+2. `CTRL+C` to exit
+
+###### Scripts instructions:
 1. `quickstart.bat` for easy startup
     - Open in file explorer on Windows
     - `./quickstart.bat` in cmd
@@ -33,6 +44,12 @@ Scripts instructions:
     - Open in file explorer on Windows
     - `./quickstart.sh` in bash terminal
     - `./quickstart.sh` in powershell
+3. `CTRL+C` to exit
+
+##### Viewing
+
+My scripts publish to port 3000.\
+The app is viewable on `http://localhost:3000`.
 
 ## Demo
 
