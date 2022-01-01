@@ -3,7 +3,7 @@
 Scroll down for screenshots/demo
 
 Dependencies:
-- `charts.js` and `react` for ui
+- `charts.js` and `react` for UI
 - `@octokit/rest` to query GitHub API
 
 ## Setup
