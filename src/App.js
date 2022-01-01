@@ -219,7 +219,7 @@ class App extends Component {
         fill: true,
         backgroundColor: 'red',
         borderColor: 'red',
-        borderWidth: 1,
+        borderWidth: 4,
         cubicInterpolationMode: 'monotone',
         tension:0.6
       }]
@@ -373,8 +373,12 @@ class App extends Component {
       datasets:[{
         label: '',
         data: Object.keys(csbs).sort().map(a=>csbs[a]),
+        fill: true,
         backgroundColor: 'purple',
-        borderColor: 'purple'
+        borderColor: 'purple',
+        borderWidth: 4,
+        cubicInterpolationMode: 'monotone',
+        tension:0.6
       }]
     }
 
