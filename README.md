@@ -212,8 +212,8 @@ Added new features:
 3. Commits for interval
 4. Issues chart
 5. A/D chart (additions/deletions)
-6. Daily commits chart
-7. A/D >500 LOC (lines of code) chart
+6. A/D >500 LOC (lines of code) chart
+7. Daily commits chart
 
 [screenshot](./screenshots/screen16.png)\
 [screenshot](./screenshots/screen15.png)\
