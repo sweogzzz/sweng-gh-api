@@ -241,7 +241,7 @@ class App extends Component {
       datasets: [{
         label: '% of code',
         data: langspop.map(a => a * 100 / (langspop.reduce((a, b) => a + b, 0))),
-        backgroundColor: ['#f72585', '#b5179e', '#7209b7', '#560bad', '#480ca8', '3a0ca3', '#3f37c9', '#3f37c9', '#4361ee', '#4cc9f0']
+        backgroundColor: ['#f72585', '#b5179e', '#7209b7']
       }]
     }
 
@@ -265,7 +265,7 @@ class App extends Component {
         label: '% contrib',
         data: teamctrb.map(a => a * 100 / (teamctrb.reduce((a, b) => a + b, 0))),
         borderWidth: 1,
-        backgroundColor: ['#001219', '#005f73', '#0a9396', '#94d2bd', '#e9d8a6', 'ee9b00', '#ca6702', '#bb3e03', '#ae2012', '#9b2226']
+        backgroundColor: ['#001219', '#005f73', '#0a9396']
       }]
     }
 
@@ -383,7 +383,7 @@ class App extends Component {
         <h1>GitHub API</h1>
         <br></br>
 
-        <form onSubmit={this.submitHandler}>
+        <form id="form" onSubmit={this.submitHandler}>
           <p id="frame">
             Required input
           </p>
@@ -394,7 +394,23 @@ class App extends Component {
               name="query"
               type="text"
               placeholder="user/repo"
+              defaultValue={'teamnewpipe/newpipe'}
               required
+            />
+          </label>
+          <br></br>
+          <br></br>
+          <p id="frame">
+            User stats for a repo
+          </p>
+          <br></br>
+          <label>
+            <label>User : </label>
+            <input
+              name="queryu"
+              type="text"
+              placeholder="user"
+              defaultValue={'tobigr'}
             />
           </label>
           <br></br>
@@ -416,20 +432,6 @@ class App extends Component {
             <input
               name="date2"
               type="datetime-local"
-            />
-          </label>
-          <br></br>
-          <br></br>
-          <p id="frame">
-            User stats for a repo
-          </p>
-          <br></br>
-          <label>
-            <label>User : </label>
-            <input
-              name="queryu"
-              type="text"
-              placeholder="user"
             />
           </label>
           <br></br>
@@ -479,6 +481,40 @@ class App extends Component {
               }}
               height={200}
             /> : 'Stats not found' }
+          </div>
+          <h5>
+            Weekly changes by user
+          </h5>
+          <p id="frame">
+            (If user provided)
+          </p>
+          <br></br>
+          <div id="frame">
+            {this.state.activity? <Bar
+              options={{
+                legend:{
+                  display:false
+                }
+              }}
+              data={addd}
+            /> : 'No user/changes found'}
+          </div>
+          <h5>
+            Weekly changes ({'>'}500 LOC)
+          </h5>
+          <p id="frame">
+            (If user provided)
+          </p>
+          <br></br>
+          <div id="frame">
+            {this.state.activity? <Bar
+              options={{
+                legend:{
+                  display:false
+                }
+              }}
+              data={addd2}
+            /> : 'No user/changes found'}
           </div>
           <h5>
             {ud?'Commits':'Recent commits'}
@@ -554,40 +590,6 @@ class App extends Component {
             /> : 'No issues found'}
           </div>
           <h5>
-            Weekly changes by user
-          </h5>
-          <p id="frame">
-            (If user provided)
-          </p>
-          <br></br>
-          <div id="frame">
-            {this.state.activity? <Bar
-              options={{
-                legend:{
-                  display:false
-                }
-              }}
-              data={addd}
-            /> : 'No user/changes found'}
-          </div>
-          <h5>
-            Weekly changes ({'>'}500 LOC)
-          </h5>
-          <p id="frame">
-            (If user provided)
-          </p>
-          <br></br>
-          <div id="frame">
-            {this.state.activity? <Bar
-              options={{
-                legend:{
-                  display:false
-                }
-              }}
-              data={addd2}
-            /> : 'No user/changes found'}
-          </div>
-          <h5>
             Contributors to repo
           </h5>
           <p>
@@ -600,7 +602,7 @@ class App extends Component {
                 maintainAspectRatio: false,
                 plugins: {
                   title: { display: false },
-                  legend: { display: true, position: 'bottom' }
+                  legend: { display: false, position: 'bottom' }
                 },
                 elements: {
                   arc: {
@@ -621,7 +623,7 @@ class App extends Component {
                 maintainAspectRatio: false,
                 plugins: {
                   title: { display: false },
-                  legend: { display: true, position: 'bottom' }
+                  legend: { display: false, position: 'bottom' }
                 },
                 elements: {
                   arc: {
