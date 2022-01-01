@@ -64,8 +64,9 @@ class App extends Component {
 
     var qarr = q.split('/');
 
-    ok.rest.users.getByUsername(qarr[0])
-    .then(response => this.setState({name:response.data.name}));
+    ok.request('GET /users/{username}',
+      {username:qarr[0]}
+    ).then(response => this.setState({name:response.data.name}))
 
     ok.rest.repos.get({
       owner: qarr[0],
@@ -86,6 +87,10 @@ class App extends Component {
       ).then((commitAuthors) => {
         this.setState({commitAuthors:commitAuthors});
       })
+      ok.paginate('GET /repos/{owner}/{repo}/issues',
+        {owner:qarr[0],repo:qarr[1],per_page:100,state:'all',since:date1},
+        (response) => response.data.map(a=>a.state)
+      ).then((issues) => this.setState({issues: countall(issues)}))
     } else {
       this.setState({datesUsed:false})
       ok.request('GET /repos/{owner}/{repo}/commits',
@@ -93,6 +98,9 @@ class App extends Component {
       ).then((response) => {
         this.setState({commitAuthors:response.data.map((commit) => [commit.commit.author.name, commit.commit.author.date])});
       })
+      ok.request('GET /repos/{owner}/{repo}/issues',
+        {owner:qarr[0],repo:qarr[1],per_page:100,state:'all'}
+      ).then((issues) => this.setState({issues: countall(issues.data.map(a => a.state))}))
     }
 
     ok.rest.repos.listLanguages({
@@ -114,10 +122,6 @@ class App extends Component {
       }
       return counts
     }
-    ok.paginate('GET /repos/{owner}/{repo}/issues',
-      {owner:qarr[0],repo:qarr[1],per_page:100,state:'all',since:date1},
-      (response) => response.data.map(a=>a.state)
-    ).then((issues) => this.setState({issues: countall(issues)}))
   }
   componentDidMount() {
     document.title = "Metrics"
@@ -263,7 +267,7 @@ class App extends Component {
           <br></br>
           <br></br>
           <p id="frame">
-            Beware loading times when inputting range.
+            Larger date range = longer wait time
           </p>
           <br></br>
           <label>
@@ -371,9 +375,9 @@ class App extends Component {
             Issues in repo
           </h5>
           <p id="frame">
-            Issues created since a date.
+            Recent issues in the repo
             <br></br>
-            (If date provided)
+            (Issues created since a date if provided)
           </p>
           <br></br>
           <div id="frame">
