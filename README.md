@@ -18,38 +18,60 @@ Required: nodejs/npm and api token.
 4. Generate a Personal Access Token specifically.
 5. Copy the token and paste it into the file.
 
-### Startup
+### Startup (Without Docker)
 
-##### Options
-- `docker-compose` setup
-- `.bat`/`.sh` scripts
+If docker is preferred, go to the next section.
 
-The scripts publish to a port. \
-This needs to be done to view everything.
+```
+$ npm install
+$ npm start
+```
 
-###### Manual instructions:
+### Startup (Using Docker)
+
+#### Options
+- Docker
+- Compose
+- Scripts
+
+#### Manual instructions:
 1. Open a terminal in `./src`
-2. `docker build -t sample .`
+2. Run `docker build -t sample .`
 3. Open the container
 
-###### Compose instructions:
+Example in a bash terminal:
+
+```
+$ docker build -t sample .
+$ docker run \
+> -it \
+> --rm \
+> -p 3000:3000 \
+> -e CHOKIDAR_USEPOLLING=true \
+> sample
+```
+
+#### Compose instructions:
 1. `docker-compose up`
 2. `CTRL+C` to exit
 
-###### Scripts instructions:
+```
+$ docker-compose up
+```
+
+#### Scripts instructions:
 1. `quickstart.bat` for easy startup
     - Open in file explorer on Windows
-    - `./quickstart.bat` in cmd
+    - `quickstart.bat` in cmd
 2. `quickstart.sh` for easy startup
     - Open in file explorer on Windows
     - `./quickstart.sh` in bash terminal
     - `./quickstart.sh` in powershell
 3. `CTRL+C` to exit
 
-##### Viewing
+#### Viewing
 
-My scripts publish to port 3000.\
-The app is viewable on `http://localhost:3000`.
+The app is viewable at `http://localhost:3000`
 
 ## Demo
 
@@ -187,9 +209,9 @@ Added new features:
 4. Issues chart
 5. A/D chart
 
-![screen16.png](./screenshots/screen16.png)
-![screen15.png](./screenshots/screen15.png)
-![screen17.png](./screenshots/screen17.png)
-![screen18.png](./screenshots/screen18.png)
-![screen19.png](./screenshots/screen19.png)
+![screen16.png](./screenshots/screen16.png)\
+![screen15.png](./screenshots/screen15.png)\
+![screen17.png](./screenshots/screen17.png)\
+![screen18.png](./screenshots/screen18.png)\
+![screen19.png](./screenshots/screen19.png)\
 ![screen20.png](./screenshots/screen20.png)
