@@ -297,6 +297,20 @@ class App extends Component {
           </label>
           <br></br>
           <br></br>
+          <p id="frame">
+            User stats for a repo
+          </p>
+          <br></br>
+          <label>
+            <label>User : </label>
+            <input
+              name="queryu"
+              type="text"
+              placeholder="user"
+            />
+          </label>
+          <br></br>
+          <br></br>
           <div>
             <input
               type="submit"
