@@ -219,4 +219,5 @@ Added new features:
 [screenshot](./screenshots/screen18.png)\
 [screenshot](./screenshots/screen19.png)\
 [screenshot](./screenshots/screen20.png)\
-[screenshot](./screenshots/screen21.png)
+[screenshot](./screenshots/screen21.png)\
+[screenshot](./screenshots/screen22.png)

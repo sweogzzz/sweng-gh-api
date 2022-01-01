@@ -165,8 +165,6 @@ class App extends Component {
       oldis['closed'] = response.data.total_count
       this.setState({issues:oldis})
     })
-
-    console.log(this.state.issues)
   }
   componentDidMount() {
     document.title = "Metrics"
@@ -358,6 +356,28 @@ class App extends Component {
       ]
     }
 
+    var csbs = {}
+    if (this.state.commitAuthors) {
+      for (var cbbs in this.state.commitAuthors) {
+        var v = this.state.commitAuthors[cbbs][1].split('T')[0]
+        if (Object.keys(csbs).includes(v)) {
+          csbs[v] = csbs[v] + 1
+        } else {
+          csbs[v] = 0
+        }
+      }
+    }
+    
+    var csdata = {
+      labels: Object.keys(csbs).sort(),
+      datasets:[{
+        label: '',
+        data: Object.keys(csbs).sort().map(a=>csbs[a]),
+        backgroundColor: 'purple',
+        borderColor: 'purple'
+      }]
+    }
+
     /*var tab = document.getElementById('table');
     if (tab) {
       for (var x in this.state.following) {
@@ -424,6 +444,7 @@ class App extends Component {
             <input
               name="date1"
               type="datetime-local"
+              defaultValue="2021-01-01T00:00:00.00"
             />
           </label>
           <br></br>
@@ -432,6 +453,7 @@ class App extends Component {
             <input
               name="date2"
               type="datetime-local"
+              defaultValue="2022-01-01T00:00:00.00"
             />
           </label>
           <br></br>
@@ -565,6 +587,48 @@ class App extends Component {
             /> : 'No commits found'}
           </div>
           <h5>
+            Commits daily
+          </h5>
+          <div id="frame">
+            { this.state.commitAuthors? <Line
+              data={csdata}
+              options={{
+                elements: {
+                  point: {
+                    radius: 0
+                  }
+                },
+                plugins: {
+                  title: {
+                    display: false
+                  },
+                  legend: {
+                    display: false
+                  }
+                },
+                interaction: {
+                  intersect: false,
+                },
+                scales: {
+                  x: {
+                    title: {
+                      display:true
+                    },
+                    type: 'time',
+                    time: {
+                      unit: ''
+                    }
+                  },
+                  y: {
+                    title: {
+                      display: true
+                    }
+                  }
+                }
+              }}
+            /> : "No commits found"}
+          </div>
+          <h5>
             Issues in repo
           </h5>
           <p id="frame">
@@ -635,6 +699,8 @@ class App extends Component {
             /> : 'No languages identified'}
           </div>
         </div>
+        <br></br>
+        <br></br>
       </div>
     )
   }
