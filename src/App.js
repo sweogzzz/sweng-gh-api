@@ -18,7 +18,7 @@ import {
   RadialLinearScale,
   TimeScale
 } from 'chart.js';
-import { Doughnut, Line, Radar } from 'react-chartjs-2';
+import { Bar, Doughnut, Line, Radar } from 'react-chartjs-2';
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -53,9 +53,10 @@ class App extends Component {
       coms: '',
       comsh: '',
       name: '',
-      commitAuthors: [],
-      commits: [],
-      datesUsed: false
+      commitAuthors: '',
+      commits: '',
+      datesUsed: false,
+      issues: ''
     });
 
     var date1 = e.target.date1.value;
@@ -163,6 +164,19 @@ class App extends Component {
       per_page: 100,
       page: 1
     }).then(response => this.setState({cons:response.data}))
+
+    var countall = function(list) {
+      var counts = { open:0, closed:0}
+      for (var num of list) {
+        if (num === 'open') counts['open'] = counts['open'] + 1;
+        else counts['closed'] = counts['closed'] + 1;
+      }
+      return counts
+    }
+    ok.paginate('GET /repos/{owner}/{repo}/issues',
+      {owner:qarr[0],repo:qarr[1],per_page:100,state:'all',since:date1},
+      (response) => response.data.map(a=>a.state)
+    ).then((issues) => this.setState({issues: countall(issues)}))
   }
   componentDidMount() {
     document.title = "Metrics"
@@ -174,7 +188,12 @@ class App extends Component {
       lans: '',
       cons: '',
       coms: '',
-      name: ''
+      name: '',
+      comsh: '',
+      commitAuthors: '',
+      commits: '',
+      datesUsed: false,
+      issues: ''
     }
     this.submitHandler = this.submitHandler.bind(this);
   }
@@ -271,35 +290,16 @@ class App extends Component {
       }]
     }
 
-    var dc = []
-    for (var dac in this.state.commitAuthors) {
-      dc.push([])
-    }
-    var dcd = [...new Set(dc)].sort()
-    var dco = dcd.map(d => 0)
-    for (var dcjg in dc) {
-      for (var dck in dcd) {
-        if (dcd[dck] === dc[dcjg]) {
-          dco[dck] += 1;
-        }
-      }
-    }
-    for (var dcwh in dcd) {
-      dcd[dcwh] = new Date(dcd[dck]).getTime();
-    }
+    console.log()
 
-    var dcdata = {
-      labels: dcd,
-      datasets: [{
-        label: '',
-        data: dco,
-        fill: true,
-        backgroundColor: 'red',
-        borderColor: 'red',
-        borderWidth: 1,
-        cubicInterpolationMode: 'monotone',
-        tension:0.6
-      }]
+    var isd = {
+      labels: ['open','closed'],
+      datasets: [
+        {
+          data: [this.state.issues['open'],this.state.issues['closed']],
+          backgroundColor: ['blue','red']
+        }
+      ]
     }
 
     var ud = this.state.datesUsed;
@@ -427,46 +427,29 @@ class App extends Component {
             /> : 'No commits found'}
           </div>
           <h5>
-            Commits daily
+            Issues in repo
           </h5>
+          <p id="frame">
+            Issues created since a date.
+            <br></br>
+            (If date provided)
+          </p>
+          <br></br>
           <div id="frame">
-            {this.state.commitAuthors? <Line
-              data={dcdata}
+            {this.state.issues? <Bar
+              data={isd}
               options={{
-                elements: {
-                  point: {
-                    radius: 0
-                  }
-                },
+                responsive: true,
                 plugins: {
-                  title: {
-                    display: false
-                  },
                   legend: {
                     display: false
-                  }
-                },
-                interaction: {
-                  intersect: false,
-                },
-                scales: {
-                  x: {
-                    title: {
-                      display:true
-                    },
-                    type: 'time',
-                    time: {
-                      unit: ''
-                    }
                   },
-                  y: {
-                    title: {
-                      display: true
-                    }
+                  title: {
+                    display: false
                   }
                 }
               }}
-            /> : 'No commits found'}
+            /> : 'No issues found'}
           </div>
           <h5>
             Contributors to repo
