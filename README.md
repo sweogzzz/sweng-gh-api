@@ -204,14 +204,16 @@ Click entries in the legend.
 
 [screenshot](./screenshots/screen14.png)
 
-### Screenshots 15-20
+### Screenshots 15-23
 
 Added new features:
 1. Time interval input
 2. User account input
 3. Commits for interval
 4. Issues chart
-5. A/D chart
+5. A/D chart (additions/deletions)
+6. Daily commits chart
+7. A/D >500 LOC (lines of code) chart
 
 [screenshot](./screenshots/screen16.png)\
 [screenshot](./screenshots/screen15.png)\
