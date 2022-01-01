@@ -1,11 +1,3 @@
-<style>
-    img[alt=screenshot] {
-        width:75%;
-        display:block;
-        margin:auto
-    }
-</style>
-
 # Metric Visualization
 
 Scroll down for screenshots/demo
@@ -217,9 +209,9 @@ Added new features:
 4. Issues chart
 5. A/D chart
 
-<img src="./screenshots/screen16.png" style="margin:auto;display:block"><br>
-<img src="./screenshots/screen15.png" style="margin:auto;display:block"><br>
-<img src="./screenshots/screen17.png" style="margin:auto;display:block"><br>
-<img src="./screenshots/screen18.png" style="margin:auto;display:block"><br>
-<img src="./screenshots/screen19.png" style="margin:auto;display:block"><br>
-<img src="./screenshots/screen20.png" style="margin:auto;display:block">
+![screenshot](./screenshots/screen16.png)\
+![screenshot](./screenshots/screen15.png)\
+![screenshot](./screenshots/screen17.png)\
+![screenshot](./screenshots/screen18.png)\
+![screenshot](./screenshots/screen19.png)\
+![screenshot](./screenshots/screen20.png)
