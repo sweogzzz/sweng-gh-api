@@ -79,10 +79,22 @@ class App extends Component {
       per_page: 100,
       page: 2
     }).then(response => this.setState({coms:response.data}))
-    if (!(date1 === '' || date2 === '')) {
+    if (!(date1 === '' && date2 === '')) {
       this.setState({datesUsed:true})
       ok.paginate('GET /repos/{owner}/{repo}/commits',
         {owner:qarr[0],repo:qarr[1],per_page:100,since:date1,until:date2},
+        (response) => response.data.map((commit) => [commit.commit.author.name, commit.commit.author.date])
+      ).then((commitAuthors) => {
+        this.setState({commitAuthors:commitAuthors});
+      })
+      ok.paginate('GET /repos/{owner}/{repo}/issues',
+        {owner:qarr[0],repo:qarr[1],per_page:100,state:'all',since:date1},
+        (response) => response.data.map(a=>a.state)
+      ).then((issues) => this.setState({issues: countall(issues)}))
+    } else if (!(date1 === '')) {
+      this.setState({datesUsed:true})
+      ok.paginate('GET /repos/{owner}/{repo}/commits',
+        {owner:qarr[0],repo:qarr[1],per_page:100},
         (response) => response.data.map((commit) => [commit.commit.author.name, commit.commit.author.date])
       ).then((commitAuthors) => {
         this.setState({commitAuthors:commitAuthors});
@@ -235,8 +247,6 @@ class App extends Component {
       }]
     }
 
-    console.log()
-
     var isd = {
       labels: ['open','closed'],
       datasets: [
@@ -332,6 +342,12 @@ class App extends Component {
           <h5>
             {ud?'Commits':'Recent commits'}
           </h5>
+          <p id="frame">
+            Accumulation of commits
+            <br></br>
+            (In time interval if dates provided)
+          </p>
+          <br></br>
           <div id="frame">
             {this.state.commitAuthors? <Line
               data={comsdata}
