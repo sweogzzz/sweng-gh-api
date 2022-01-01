@@ -20,14 +20,19 @@ Required: nodejs/npm and api token.
 
 ### Startup
 
-`npm start` can be called.
+Manual instructions:
+1. Open a terminal in `./src`
+2. `docker build -t sample .`
+3. Open the container
 
-These scripts can be employed:
-- `quickstart.bat` for easy startup (requires npm for Windows)
+Scripts instructions:
+1. `quickstart.bat` for easy startup
     - Open in file explorer on Windows
-    - `./quickstart.bat` in powershell
-- `quickstart.sh` for easy startup (requires npm for linux)
+    - `./quickstart.bat` in cmd
+2. `quickstart.sh` for easy startup
+    - Open in file explorer on Windows
     - `./quickstart.sh` in bash terminal
+    - `./quickstart.sh` in powershell
 
 ## Demo
 
