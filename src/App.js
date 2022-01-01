@@ -483,7 +483,11 @@ class App extends Component {
           <br></br>
           <div id="frame">
             {this.state.activity? <Bar
-              options={{}}
+              options={{
+                legend:{
+                  display:false
+                }
+              }}
               data={addd}
             /> : 'No user/changes found'}
           </div>
