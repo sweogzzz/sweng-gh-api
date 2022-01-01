@@ -62,8 +62,6 @@ class App extends Component {
       return;
     }
 
-    let test = this;
-
     var qarr = q.split('/');
 
     ok.rest.users.getByUsername(qarr[0])
