@@ -6,10 +6,6 @@ Dependencies:
 - `charts.js` and `react` for ui
 - `@octokit/rest` to query GitHub API
 
-Old Dependencies:
-- `github-api`
-- `axios`
-
 ## Setup
 
 Required: nodejs/npm and api token.
