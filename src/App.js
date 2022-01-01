@@ -51,7 +51,8 @@ class App extends Component {
       commits: '',
       datesUsed: false,
       issues: '',
-      activity: ''
+      activity: '',
+      following: ''
     });
 
     var date1 = e.target.date1.value;
@@ -121,9 +122,10 @@ class App extends Component {
       ).then((response) => {
         this.setState({commitAuthors:response.data.map((commit) => [commit.commit.author.name, commit.commit.author.date])});
       })
-      ok.request('GET /repos/{owner}/{repo}/issues',
-        {owner:qarr[0],repo:qarr[1],per_page:100,state:'all'}
-      ).then((issues) => this.setState({issues: countall(issues.data.map(a => a.state))}))
+      ok.paginate('GET /repos/{owner}/{repo}/issues',
+        {owner:qarr[0],repo:qarr[1],per_page:100,state:'all'},
+        (response) => response.data.map(a => a.state)
+      ).then((issues) => this.setState({issues: countall(issues)}))
     }
 
     ok.rest.repos.listLanguages({
@@ -141,6 +143,11 @@ class App extends Component {
       owner:qarr[0],
       repo:qarr[1]
     }).then(response => response.data?this.setState({activity:response.data.filter(a => a['author']['login'].toLowerCase()===e.target.queryu.value.toLowerCase())[0]}):{})
+
+    ok.paginate('GET /users/{username}/following',
+      {username:e.target.queryu.value,per_page:100},
+      (response) => response.data.map(a=>[a.login,a.avatar_url])
+    ).then((follows) => this.setState({following:follows}));
   }
   componentDidMount() {
     document.title = "Metrics"
@@ -158,7 +165,8 @@ class App extends Component {
       commits: '',
       datesUsed: false,
       issues: '',
-      activity: ''
+      activity: '',
+      following: ''
     }
     this.submitHandler = this.submitHandler.bind(this);
   }
@@ -331,6 +339,26 @@ class App extends Component {
       ]
     }
 
+    /*var tab = document.getElementById('table');
+    if (tab) {
+      for (var x in this.state.following) {
+        var tr = document.createElement('tr');
+        var th1 = document.createElement('th')
+        th1.style="text-align:left"
+        th1.innerHTML=(`${this.state.following[x][0]}`)
+        var th2 = document.createElement('th')
+        th2.style="text-align:left"
+        var img = document.createElement('img')
+        img.src=this.state.following[x][1]
+        img.width=20
+        img.height=20
+        th2.appendChild(img)
+        tr.appendChild(th1);
+        tr.appendChild(th2)
+        tab.appendChild(tr)
+      }
+    }*/
+
     return (
       <div>
         <h1>GitHub API</h1>
@@ -400,6 +428,7 @@ class App extends Component {
         <h4>User: {this.state.activity?this.state.activity['author']['login']:'n/a'}</h4>
         <p id="frame">Might take a second to load</p><br></br>
         <img width="100" src={this.state.activity ? this.state.activity.author.avatar_url : null} alt="avatar.png" />
+        <br></br>
         <div>
           <h5>
             Repository stats
