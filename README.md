@@ -222,4 +222,4 @@ Added new features:
 ![screenshot](./screenshots/screen17.png)\
 ![screenshot](./screenshots/screen18.png)\
 ![screenshot](./screenshots/screen19.png)\
-![screenshot](./screenshots/screen20.png | width=75%)
+![screenshot](./screenshots/screen20.png | width=500)
