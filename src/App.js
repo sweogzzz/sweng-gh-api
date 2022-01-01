@@ -16,7 +16,7 @@ import {
   RadialLinearScale,
   TimeScale
 } from 'chart.js';
-import { Bar, Doughnut, Line, Radar } from 'react-chartjs-2';
+import { Bar, Chart, Doughnut, Line, Radar } from 'react-chartjs-2';
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -32,6 +32,7 @@ ChartJS.register(
 );
 
 class App extends Component {
+
   submitHandler(e) {
     e.preventDefault();
     const token = process.env.REACT_APP_SECRET;
@@ -50,7 +51,8 @@ class App extends Component {
       commitAuthors: '',
       commits: '',
       datesUsed: false,
-      issues: ''
+      issues: '',
+      activity: ''
     });
 
     var date1 = e.target.date1.value;
@@ -79,6 +81,16 @@ class App extends Component {
       per_page: 100,
       page: 2
     }).then(response => this.setState({coms:response.data}))
+
+    var countall = function(list) {
+      var counts = { open:0, closed:0}
+      for (var num of list) {
+        if (num === 'open') counts['open'] = counts['open'] + 1;
+        else counts['closed'] = counts['closed'] + 1;
+      }
+      return counts
+    }
+
     if (!(date1 === '' && date2 === '')) {
       this.setState({datesUsed:true})
       ok.paginate('GET /repos/{owner}/{repo}/commits',
@@ -126,14 +138,10 @@ class App extends Component {
       page: 1
     }).then(response => this.setState({cons:response.data}))
 
-    var countall = function(list) {
-      var counts = { open:0, closed:0}
-      for (var num of list) {
-        if (num === 'open') counts['open'] = counts['open'] + 1;
-        else counts['closed'] = counts['closed'] + 1;
-      }
-      return counts
-    }
+    ok.rest.repos.getContributorsStats({
+      owner:qarr[0],
+      repo:qarr[1]
+    }).then(response => this.setState({activity:response.data.filter(a => a['author']['login'].toLowerCase()===e.target.queryu.value.toLowerCase())[0]}))
   }
   componentDidMount() {
     document.title = "Metrics"
@@ -150,7 +158,8 @@ class App extends Component {
       commitAuthors: '',
       commits: '',
       datesUsed: false,
-      issues: ''
+      issues: '',
+      activity: ''
     }
     this.submitHandler = this.submitHandler.bind(this);
   }
@@ -259,12 +268,45 @@ class App extends Component {
 
     var ud = this.state.datesUsed;
 
+    var aaa = []
+    var ddd = []
+    var aadd = []
+    if (this.state.activity) {
+      aaa = this.state.activity.weeks.map(a=>a.a)
+      ddd = this.state.activity.weeks.map(a=>-parseInt(a.d))
+      for (var iaadd in this.state.activity.weeks) {
+        aadd.push({
+          data: [aaa[iaadd],ddd[iaadd]],
+          backgroundColor: ['green','red']
+        })
+      }
+    }
+    var addd = {
+      labels: ['additions','deletions'],
+      datasets: aadd
+    }
+
+    var ctx = ChartJS.getChart('myChart')
+    if (ctx !== undefined) {
+      ctx.destroy();
+    }
+    ctx = document.getElementById('myChart')
+    var myChart = new ChartJS(ctx, {
+      type:'bar',
+      data: addd,
+      options: {}
+    })
+
     return (
       <div>
         <h1>GitHub API</h1>
         <br></br>
 
         <form onSubmit={this.submitHandler}>
+          <p id="frame">
+            Required input
+          </p>
+          <br></br>
           <label>
             <label>Repo : </label>
             <input
@@ -321,6 +363,9 @@ class App extends Component {
         <br></br>
         <h4>Owner: {this.state.repo?this.state.name:'n/a'}</h4>
         <img width="100" src={this.state.repo ? this.state.repo.owner.avatar_url : null} alt="avatar.png" />
+        <h4>User: {this.state.activity?this.state.activity['author']['login']:'n/a'}</h4>
+        <p id="frame">Might take a second to load</p><br></br>
+        <img width="100" src={this.state.activity ? this.state.activity.author.avatar_url : null} alt="avatar.png" />
         <div>
           <h5>
             Repository stats
@@ -425,6 +470,19 @@ class App extends Component {
                 }
               }}
             /> : 'No issues found'}
+          </div>
+          <h5>
+            Code changes by user
+          </h5>
+          <p id="frame">
+            If user provided
+          </p>
+          <div id="frame">
+            {this.state.activity? <canvas
+              id="myChart"
+              width="400"
+              height="400"
+            /> : 'No user/changes found'}
           </div>
           <h5>
             Contributors to repo
