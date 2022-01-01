@@ -217,9 +217,9 @@ Added new features:
 4. Issues chart
 5. A/D chart
 
-<img src="./screenshots/screen16.png" width=75% style="margin:auto;display:block"><br>
-<img src="./screenshots/screen15.png" width=75% style="margin:auto;display:block"><br>
-<img src="./screenshots/screen17.png" width=75% style="margin:auto;display:block"><br>
-<img src="./screenshots/screen18.png" width=75% style="margin:auto;display:block"><br>
-<img src="./screenshots/screen19.png" width=75% style="margin:auto;display:block"><br>
-<img src="./screenshots/screen20.png" width=75% style="margin:auto;display:block">
+<img src="./screenshots/screen16.png" style="margin:auto;display:block"><br>
+<img src="./screenshots/screen15.png" style="margin:auto;display:block"><br>
+<img src="./screenshots/screen17.png" style="margin:auto;display:block"><br>
+<img src="./screenshots/screen18.png" style="margin:auto;display:block"><br>
+<img src="./screenshots/screen19.png" style="margin:auto;display:block"><br>
+<img src="./screenshots/screen20.png" style="margin:auto;display:block">
