@@ -16,7 +16,7 @@ import {
   RadialLinearScale,
   TimeScale
 } from 'chart.js';
-import { Bar, Chart, Doughnut, Line, Radar } from 'react-chartjs-2';
+import { Bar, Doughnut, Line, Radar } from 'react-chartjs-2';
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -141,7 +141,7 @@ class App extends Component {
     ok.rest.repos.getContributorsStats({
       owner:qarr[0],
       repo:qarr[1]
-    }).then(response => this.setState({activity:response.data.filter(a => a['author']['login'].toLowerCase()===e.target.queryu.value.toLowerCase())[0]}))
+    }).then(response => response.data?this.setState({activity:response.data.filter(a => a['author']['login'].toLowerCase()===e.target.queryu.value.toLowerCase())[0]}):{})
   }
   componentDidMount() {
     document.title = "Metrics"
@@ -272,30 +272,33 @@ class App extends Component {
     var ddd = []
     var aadd = []
     if (this.state.activity) {
-      aaa = this.state.activity.weeks.map(a=>a.a)
-      ddd = this.state.activity.weeks.map(a=>-parseInt(a.d))
+      //aaa = this.state.activity.weeks.map(a=>parseInt(a.a))
+      //ddd = this.state.activity.weeks.map(a=>-parseInt(a.d))
       for (var iaadd in this.state.activity.weeks) {
-        aadd.push({
-          data: [aaa[iaadd],ddd[iaadd]],
-          backgroundColor: ['green','red']
-        })
+        //aadd.push(iaadd);
+        var yadaddd = this.state.activity.weeks[iaadd]
+        if (yadaddd.a > 0 || yadaddd.d > 0) {
+          aaa.push(yadaddd.a);
+          ddd.push(-yadaddd.d);
+          aadd.push(iaadd)
+        }
       }
     }
     var addd = {
-      labels: ['additions','deletions'],
-      datasets: aadd
+      labels: aadd,
+      datasets: [
+        {
+          label: 'Additions',
+          data: aaa,
+          backgroundColor: 'green'
+        },
+        {
+          label: 'Deletions',
+          data: ddd,
+          backgroundColor: 'red'
+        }
+      ]
     }
-
-    var ctx = ChartJS.getChart('myChart')
-    if (ctx !== undefined) {
-      ctx.destroy();
-    }
-    ctx = document.getElementById('myChart')
-    var myChart = new ChartJS(ctx, {
-      type:'bar',
-      data: addd,
-      options: {}
-    })
 
     return (
       <div>
@@ -475,13 +478,13 @@ class App extends Component {
             Code changes by user
           </h5>
           <p id="frame">
-            If user provided
+            (If user provided)
           </p>
+          <br></br>
           <div id="frame">
-            {this.state.activity? <canvas
-              id="myChart"
-              width="400"
-              height="400"
+            {this.state.activity? <Bar
+              options={{}}
+              data={addd}
             /> : 'No user/changes found'}
           </div>
           <h5>
