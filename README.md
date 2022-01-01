@@ -27,6 +27,10 @@ $ npm install
 $ npm start
 ```
 
+#### Viewing
+
+The app is viewable at `http://localhost:3000`
+
 ### Startup (Using Docker)
 
 #### Options

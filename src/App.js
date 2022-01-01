@@ -82,14 +82,14 @@ class App extends Component {
       page: 2
     }).then(response => this.setState({coms:response.data}))
 
-    var countall = function(list) {
+    /*var countall = function(list) {
       var counts = { open:0, closed:0}
       for (var num of list) {
         if (num === 'open') counts['open'] = counts['open'] + 1;
         else counts['closed'] = counts['closed'] + 1;
       }
       return counts
-    }
+    }*/
 
     if (!(date1 === '' && date2 === '')) {
       this.setState({datesUsed:true})
@@ -99,10 +99,10 @@ class App extends Component {
       ).then((commitAuthors) => {
         this.setState({commitAuthors:commitAuthors});
       })
-      ok.paginate('GET /repos/{owner}/{repo}/issues',
+      /*ok.paginate('GET /repos/{owner}/{repo}/issues',
         {owner:qarr[0],repo:qarr[1],per_page:100,state:'all',since:date1},
         (response) => response.data.map(a=>a.state)
-      ).then((issues) => this.setState({issues: countall(issues)}))
+      ).then((issues) => this.setState({issues: countall(issues)}))*/
     } else if (!(date1 === '')) {
       this.setState({datesUsed:true})
       ok.paginate('GET /repos/{owner}/{repo}/commits',
@@ -111,10 +111,10 @@ class App extends Component {
       ).then((commitAuthors) => {
         this.setState({commitAuthors:commitAuthors});
       })
-      ok.paginate('GET /repos/{owner}/{repo}/issues',
+      /*ok.paginate('GET /repos/{owner}/{repo}/issues',
         {owner:qarr[0],repo:qarr[1],per_page:100,state:'all',since:date1},
         (response) => response.data.map(a=>a.state)
-      ).then((issues) => this.setState({issues: countall(issues)}))
+      ).then((issues) => this.setState({issues: countall(issues)}))*/
     } else {
       this.setState({datesUsed:false})
       ok.request('GET /repos/{owner}/{repo}/commits',
@@ -122,10 +122,10 @@ class App extends Component {
       ).then((response) => {
         this.setState({commitAuthors:response.data.map((commit) => [commit.commit.author.name, commit.commit.author.date])});
       })
-      ok.paginate('GET /repos/{owner}/{repo}/issues',
+      /*ok.paginate('GET /repos/{owner}/{repo}/issues',
         {owner:qarr[0],repo:qarr[1],per_page:100,state:'all'},
         (response) => response.data.map(a => a.state)
-      ).then((issues) => this.setState({issues: countall(issues)}))
+      ).then((issues) => this.setState({issues: countall(issues)}))*/
     }
 
     ok.rest.repos.listLanguages({
@@ -144,10 +144,29 @@ class App extends Component {
       repo:qarr[1]
     }).then(response => response.data?this.setState({activity:response.data.filter(a => a['author']['login'].toLowerCase()===e.target.queryu.value.toLowerCase())[0]}):{})
 
-    ok.paginate('GET /users/{username}/following',
+    /*ok.paginate('GET /users/{username}/following',
       {username:e.target.queryu.value,per_page:100},
       (response) => response.data.map(a=>[a.login,a.avatar_url])
-    ).then((follows) => this.setState({following:follows}));
+    ).then((follows) => this.setState({following:follows}));*/
+
+    ok.rest.search.issuesAndPullRequests({
+      q:`type:issue+state:open+repo:${qarr[0]}/${qarr[1]}`
+    }).then(response => {
+      var oldis = this.state.issues;
+      if (oldis === '') oldis = {}
+      oldis['open'] = response.data.total_count
+      this.setState({issues:{open:response.data.total_count}})
+    })
+    ok.search.issuesAndPullRequests({
+      q:`type:issue+state:closed+repo:${qarr[0]}/${qarr[1]}`
+    }).then(response => {
+      var oldis = this.state.issues;
+      if (oldis === '') oldis = {}
+      oldis['closed'] = response.data.total_count
+      this.setState({issues:oldis})
+    })
+
+    console.log(this.state.issues)
   }
   componentDidMount() {
     document.title = "Metrics"
