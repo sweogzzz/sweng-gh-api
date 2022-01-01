@@ -58,9 +58,7 @@ class App extends Component {
       datesUsed: false
     });
 
-    console.log(e.target.date1.value);
     var date1 = e.target.date1.value;
-    console.log(e.target.date2.value);
     var date2 = e.target.date2.value;
 
     var q = e.target.query.value;
@@ -207,7 +205,7 @@ class App extends Component {
     var comsdata = {
       labels: comsd,
       datasets: [{
-        label: 'overall',
+        label: '',
         data: comsv2,
         fill: true,
         backgroundColor: 'red',
@@ -273,38 +271,35 @@ class App extends Component {
       }]
     }
 
-    var sbs = {};
-    for (var ctr in this.state.cons) {
-      var sbsdata = [];
-      for (var coma in this.state.commitAuthors) {
-        if (this.state.commitAuthors[coma][0] === this.state.cons[ctr]['login']) {
-          console.log(this.state.commitAuthors[coma][0]+' '+this.state.cons[ctr]['login'])
-          if (sbsdata.length === 0) {
-            sbsdata.push(1);
-          } else {
-            sbsdata.push(sbsdata[sbsdata.length-1]+1);
-          }
-        } else {
-          sbsdata.push(sbsdata[sbsdata.length-1])
+    var dc = []
+    for (var dac in this.state.commitAuthors) {
+      dc.push([])
+    }
+    var dcd = [...new Set(dc)].sort()
+    var dco = dcd.map(d => 0)
+    for (var dcjg in dc) {
+      for (var dck in dcd) {
+        if (dcd[dck] === dc[dcjg]) {
+          dco[dck] += 1;
         }
       }
-      if (sbsdata.length > 2) {
-        sbs.push({
-          label: this.state.cons[ctr]['login'],
-          data: sbsdata,
-          fill: true,
-          backgroundColor: 'red',
-          borderColor: 'red',
-          borderWidth: 1,
-          cubicInterpolationMode: 'monotone',
-          tension:0.6
-        })
-      }
+    }
+    for (var dcwh in dcd) {
+      dcd[dcwh] = new Date(dcd[dck]).getTime();
     }
 
-    var sbsd = {
-      labels: comsd,
-      datasets: sbs
+    var dcdata = {
+      labels: dcd,
+      datasets: [{
+        label: '',
+        data: dco,
+        fill: true,
+        backgroundColor: 'red',
+        borderColor: 'red',
+        borderWidth: 1,
+        cubicInterpolationMode: 'monotone',
+        tension:0.6
+      }]
     }
 
     var ud = this.state.datesUsed;
@@ -432,11 +427,11 @@ class App extends Component {
             /> : 'No commits found'}
           </div>
           <h5>
-            Side-by-side
+            Commits daily
           </h5>
           <div id="frame">
             {this.state.commitAuthors? <Line
-              data={sbsd}
+              data={dcdata}
               options={{
                 elements: {
                   point: {
