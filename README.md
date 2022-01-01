@@ -79,20 +79,20 @@ The app is viewable at `http://localhost:3000`
 
 How the web app looks when started.
 
-![screenshot](screenshots/screen1.png)
+[screenshot](screenshots/screen1.png)
 
 ### Screenshot 2
 
 Chartsjs comes with interpolation.\
 For nicer looking line graphs.
 
-![screenshot](screenshots/screen2.png)
+[screenshot](screenshots/screen2.png)
 
 ### Screenshot 3
 
 Some analysis I did on this repo.
 
-![screenshot](screenshots/screen3.png)
+[screenshot](screenshots/screen3.png)
 
 ### Screenshot 4
 
@@ -112,7 +112,7 @@ Going in order up/down left/right:
     - also making use of shell utilities
     - interesting takeaway about hobbies
 
-![screenshot](screenshots/screen4.png)
+[screenshot](screenshots/screen4.png)
 
 ### Screenshot 5
 
@@ -129,7 +129,7 @@ Another repo `imdbpy`:
     - makefile takes little space
     - makes sense it would
 
-![screenshot](screenshots/screen5.png)
+[screenshot](screenshots/screen5.png)
 
 ### Screenshot 6
 
@@ -138,7 +138,7 @@ View of a commit at 9pm
 - Peer into work ethic
 - Conversely, bad habits
 
-![screenshot](screenshots/screen6.png)
+[screenshot](screenshots/screen6.png)
 
 ### Screenshot 7
 
@@ -149,13 +149,13 @@ Nice example of a good rating.
 - Still, smaller code can be a good thing
 - Left to the user to interpret the graphs
 
-![screenshot](screenshots/screen7.png)
+[screenshot](screenshots/screen7.png)
 
 ### Screenshot 8
 
 Another look at the statistics.
 
-![screenshot](screenshots/screen8.png)
+[screenshot](screenshots/screen8.png)
 
 ### Screenshot 9
 
@@ -165,25 +165,25 @@ Large codebase, good ratings.\
 - Commits come in spikes
 - Helps avoid clutter
 
-![screenshot](screenshots/screen9.png)
+[screenshot](screenshots/screen9.png)
 
 ### Screenshot 10
 
 Clear view of the most active contributors.
 
-![screenshot](screenshots/screen10.png)
+[screenshot](screenshots/screen10.png)
 
 ### Screenshot 11
 
 Nice and slightly different repo.
 
-![screenshot](screenshots/screen11.png)
+[screenshot](screenshots/screen11.png)
 
 ### Screenshot 12
 
 Another repository, cool stats.
 
-![screenshot](screenshots/screen12.png)
+[screenshot](screenshots/screen12.png)
 
 ### Screenshot 13
 
@@ -191,14 +191,14 @@ Repository with steady production.
 - Consistent commits past two weeks.
 - Use of a trio of core langs.
 
-![screenshot](./screenshots/screen13.png)
+[screenshot](./screenshots/screen13.png)
 
 ### Screenshot 14
 
 Example of filtering data.\
 Click entries in the legend.
 
-![screenshot](./screenshots/screen14.png)
+[screenshot](./screenshots/screen14.png)
 
 ### Screenshots 15-20
 
@@ -209,9 +209,9 @@ Added new features:
 4. Issues chart
 5. A/D chart
 
-![screenshot](./screenshots/screen16.png)\
-![screenshot](./screenshots/screen15.png)\
-![screenshot](./screenshots/screen17.png)\
-![screenshot](./screenshots/screen18.png)\
-![screenshot](./screenshots/screen19.png)\
-![screenshot](./screenshots/screen20.png)
+[screenshot](./screenshots/screen16.png)\
+[screenshot](./screenshots/screen15.png)\
+[screenshot](./screenshots/screen17.png)\
+[screenshot](./screenshots/screen18.png)\
+[screenshot](./screenshots/screen19.png)\
+[screenshot](./screenshots/screen20.png)
