@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import GitHub from 'github-api';
 import {Octokit} from '@octokit/rest';
-import axios from 'axios';
 import 'date-fns';
 import 'chartjs-adapter-date-fns';
 import {
@@ -38,10 +36,6 @@ class App extends Component {
     e.preventDefault();
     const token = process.env.REACT_APP_SECRET;
 
-    const gh = new GitHub({
-      token: token
-    });
-
     const ok = new Octokit({
       auth: token
     })
@@ -67,48 +61,18 @@ class App extends Component {
       console.log(toString(q).match(/[a-zA-Z0-9][a-zA-Z0-9-]{0,38}[a-zA-Z0-9]\/[a-zA-Z0-9-_]{0,100}/));
       return;
     }
-    //this.setState({name:q.split('/')[0]})
 
     let test = this;
 
     var qarr = q.split('/');
 
-    gh.getUser(qarr[0])
-    .getProfile(function(err,out) {
-      test.setState({name:out['name']})
-    })
+    ok.rest.users.getByUsername(qarr[0])
+    .then(response => this.setState({name:response.data.name}));
 
-    axios.get('https://api.github.com/repos/' + q,
-      { headers: { 'Authorization': `token ${token}` } })
-      .then(response => this.setState({ repo: response.data }))
-      .catch((err) => { console.log(err) });
-
-    /*axios.get('https://api.github.com/repos/' + q + '/languages',
-      { headers: { 'Authorization': `token ${token}` } })
-      .then(response => this.setState({ lans: response.data }))
-      .catch((err) => { console.log(err) });
-    axios.get('https://api.github.com/repos/' + q + '/contributors',
-      { headers: { 'Authorization': `token ${token}` } })
-      .then(response => this.setState({ cons: response.data }))
-      .catch((err) => { console.log(err) });*/
-
-    /*axios.get('https://api.github.com/repos/' + q + '/commits',
-      { headers: { 'Authorization': `token ${token}` } })
-      .then(response => this.setState({ coms: response.data,
-        comsh: response.headers }))
-      .catch((err) => { console.log(err) });*/
-
-    /*gh.getRepo(qarr[0],qarr[1])
-    .getContributors(function(err,out) {
-      test.setState({cons:out})
-    })
-    var therepo = gh.getRepo(qarr[0],qarr[1]);
-    therepo.getContributors(function(err,out) {
-      test.setState({cons:out})
-    })
-    therepo.listCommits({state:'all',since:'1/1/2000',until:'1/1/2021'},function(err,out) {
-      test.setState({coms:out})
-    })*/
+    ok.rest.repos.get({
+      owner: qarr[0],
+      repo: qarr[1]
+    }).then(response => this.setState({repo:response.data}))
 
     ok.rest.repos.listCommits({
       owner: qarr[0],
@@ -132,28 +96,7 @@ class App extends Component {
         this.setState({commitAuthors:response.data.map((commit) => [commit.commit.author.name, commit.commit.author.date])});
       })
     }
-    /*ok.paginate('GET /repos/{owner}/{repo}/commits', {
-      owner: qarr[0],
-      repo: qarr[1],
-      per_page: 100
-    }).then((commits) => {
-      console.log(commits)
-    })*/
-    /*ok.paginate('GET /repos/{owner}/{repo}/commits',
-      { owner: qarr[0], repo: qarr[1], per_page: 100},
-      (response) => response.data.map((commit) => commit.author)
-    ).then((commitAuthors) => {
-      console.log(commitAuthors);
-    })*/
-    /*ok.request('GET /repos/{owner}/{repo}/commits',
-      { owner: qarr[0], repo: qarr[1], per_page: 100}
-    ).then((commits) => {
-      var commits2 = [];
-      for (var c2wh of commits) {
-        commits2.push([commits[c2wh]['commit']['author']['date'],c2wh]);
-      }
-      this.setState({commits:commits2})
-    })*/
+
     ok.rest.repos.listLanguages({
       owner: qarr[0],
       repo: qarr[1]
