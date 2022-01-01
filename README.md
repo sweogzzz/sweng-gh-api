@@ -159,3 +159,19 @@ Example of filtering data.\
 Click entries in the legend.
 
 ![screen14.png](./screenshots/screen14.png)
+
+### Screenshots 15-20
+
+Added new features:
+1. Time interval input
+2. User account input
+3. Commits for interval
+4. Issues chart
+5. A/D chart
+
+![screen16.png](./screenshots/screen16.png)
+![screen15.png](./screenshots/screen15.png)
+![screen17.png](./screenshots/screen17.png)
+![screen18.png](./screenshots/screen18.png)
+![screen19.png](./screenshots/screen19.png)
+![screen20.png](./screenshots/screen20.png)
