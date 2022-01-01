@@ -32,9 +32,6 @@ ChartJS.register(
 );
 
 class App extends Component {
-
-  // test
-
   submitHandler(e) {
     e.preventDefault();
     const token = process.env.REACT_APP_SECRET;
