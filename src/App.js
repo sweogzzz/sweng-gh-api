@@ -276,10 +276,10 @@ class App extends Component {
       for (var iaadd in this.state.activity.weeks) {
         //aadd.push(iaadd);
         var yadaddd = this.state.activity.weeks[iaadd]
-        if (yadaddd.a > 0 || yadaddd.d > 0) {
+        if (yadaddd.a > 0 || yadaddd.d < 0) {
           aaa.push(yadaddd.a);
           ddd.push(-yadaddd.d);
-          aadd.push(iaadd)
+          aadd.push(parseInt(iaadd)+1)
         }
       }
     }
@@ -294,6 +294,38 @@ class App extends Component {
         {
           label: 'Deletions',
           data: ddd,
+          backgroundColor: 'red'
+        }
+      ]
+    }
+
+    var aaa2 = []
+    var ddd2 = []
+    var aadd2 = []
+    if (this.state.activity) {
+      //aaa = this.state.activity.weeks.map(a=>parseInt(a.a))
+      //ddd = this.state.activity.weeks.map(a=>-parseInt(a.d))
+      for (var iaadd2 in this.state.activity.weeks) {
+        //aadd.push(iaadd);
+        var yadaddd2 = this.state.activity.weeks[iaadd2]
+        if (yadaddd2.a > 500 || yadaddd2.d < -500) {
+          aaa2.push(yadaddd2.a);
+          ddd2.push(-yadaddd2.d);
+          aadd2.push(parseInt(iaadd2)+1)
+        }
+      }
+    }
+    var addd2 = {
+      labels: aadd2,
+      datasets: [
+        {
+          label: 'Additions',
+          data: aaa2,
+          backgroundColor: 'green'
+        },
+        {
+          label: 'Deletions',
+          data: ddd2,
           backgroundColor: 'red'
         }
       ]
@@ -474,7 +506,7 @@ class App extends Component {
             /> : 'No issues found'}
           </div>
           <h5>
-            Code changes by user
+            Weekly changes by user
           </h5>
           <p id="frame">
             (If user provided)
@@ -488,6 +520,23 @@ class App extends Component {
                 }
               }}
               data={addd}
+            /> : 'No user/changes found'}
+          </div>
+          <h5>
+            Weekly changes ({'>'}500 LOC)
+          </h5>
+          <p id="frame">
+            (If user provided)
+          </p>
+          <br></br>
+          <div id="frame">
+            {this.state.activity? <Bar
+              options={{
+                legend:{
+                  display:false
+                }
+              }}
+              data={addd2}
             /> : 'No user/changes found'}
           </div>
           <h5>
