@@ -53,8 +53,15 @@ class App extends Component {
       coms: '',
       comsh: '',
       name: '',
-      commitAuthors: ''
+      commitAuthors: [],
+      commits: [],
+      datesUsed: false
     });
+
+    console.log(e.target.date1.value);
+    var date1 = e.target.date1.value;
+    console.log(e.target.date2.value);
+    var date2 = e.target.date2.value;
 
     var q = e.target.query.value;
     if (!(/[a-zA-Z0-9][a-zA-Z0-9-]{0,38}[a-zA-Z0-9]\/[a-zA-Z0-9-_]{0,100}/.test(q))) {
@@ -110,12 +117,22 @@ class App extends Component {
       per_page: 100,
       page: 2
     }).then(response => this.setState({coms:response.data}))
-    ok.paginate('GET /repos/{owner}/{repo}/commits',
-      {owner:qarr[0],repo:qarr[1],per_page:100},
-      (response) => response.data.map((commit) => commit.commit.author.date)
-    ).then((commitAuthors) => {
-      this.setState({commitAuthors:commitAuthors});
-    })
+    if (!(date1 === '' || date2 === '')) {
+      this.setState({datesUsed:true})
+      ok.paginate('GET /repos/{owner}/{repo}/commits',
+        {owner:qarr[0],repo:qarr[1],per_page:100,since:date1,until:date2},
+        (response) => response.data.map((commit) => [commit.commit.author.name, commit.commit.author.date])
+      ).then((commitAuthors) => {
+        this.setState({commitAuthors:commitAuthors});
+      })
+    } else {
+      this.setState({datesUsed:false})
+      ok.request('GET /repos/{owner}/{repo}/commits',
+        {owner:qarr[0],repo:qarr[1],per_page:100}
+      ).then((response) => {
+        this.setState({commitAuthors:response.data.map((commit) => [commit.commit.author.name, commit.commit.author.date])});
+      })
+    }
     /*ok.paginate('GET /repos/{owner}/{repo}/commits', {
       owner: qarr[0],
       repo: qarr[1],
@@ -131,8 +148,12 @@ class App extends Component {
     })*/
     /*ok.request('GET /repos/{owner}/{repo}/commits',
       { owner: qarr[0], repo: qarr[1], per_page: 100}
-    ).then((names) => {
-      console.log(names.data[0].author);
+    ).then((commits) => {
+      var commits2 = [];
+      for (var c2wh of commits) {
+        commits2.push([commits[c2wh]['commit']['author']['date'],c2wh]);
+      }
+      this.setState({commits:commits2})
     })*/
     ok.rest.repos.listLanguages({
       owner: qarr[0],
@@ -173,9 +194,7 @@ class App extends Component {
     var comsd = [];
     var comsn = {};
     for (var i in this.state.commitAuthors) {
-      //var dtxt = this.state.coms[i].commit.author.date;
-      //comsd.push((new Date(dtxt)).getTime());
-      comsd.push((new Date(this.state.commitAuthors[i])).getTime());
+      comsd.push((new Date(this.state.commitAuthors[i][1])).getTime());
     }
     comsd.sort();
     for (let e of comsd) {
@@ -254,12 +273,50 @@ class App extends Component {
       }]
     }
 
+    var sbs = {};
+    for (var ctr in this.state.cons) {
+      var sbsdata = [];
+      for (var coma in this.state.commitAuthors) {
+        if (this.state.commitAuthors[coma][0] === this.state.cons[ctr]['login']) {
+          console.log(this.state.commitAuthors[coma][0]+' '+this.state.cons[ctr]['login'])
+          if (sbsdata.length === 0) {
+            sbsdata.push(1);
+          } else {
+            sbsdata.push(sbsdata[sbsdata.length-1]+1);
+          }
+        } else {
+          sbsdata.push(sbsdata[sbsdata.length-1])
+        }
+      }
+      if (sbsdata.length > 2) {
+        sbs.push({
+          label: this.state.cons[ctr]['login'],
+          data: sbsdata,
+          fill: true,
+          backgroundColor: 'red',
+          borderColor: 'red',
+          borderWidth: 1,
+          cubicInterpolationMode: 'monotone',
+          tension:0.6
+        })
+      }
+    }
+
+    var sbsd = {
+      labels: comsd,
+      datasets: sbs
+    }
+
+    var ud = this.state.datesUsed;
+
     return (
       <div>
         <h1>GitHub API</h1>
         <br></br>
+
         <form onSubmit={this.submitHandler}>
           <label>
+            <label>Repo : </label>
             <input
               name="query"
               type="text"
@@ -267,6 +324,29 @@ class App extends Component {
               required
             />
           </label>
+          <br></br>
+          <br></br>
+          <p id="frame">
+            Beware loading times when inputting range.
+          </p>
+          <br></br>
+          <label>
+            <label>Since : </label>
+            <input
+              name="date1"
+              type="datetime-local"
+            />
+          </label>
+          <br></br>
+          <label>
+            <label>Until : </label>
+            <input
+              name="date2"
+              type="datetime-local"
+            />
+          </label>
+          <br></br>
+          <br></br>
           <div>
             <input
               type="submit"
@@ -310,13 +390,10 @@ class App extends Component {
             /> : 'Stats not found' }
           </div>
           <h5>
-            Recent commits to repo
+            {ud?'Commits':'Recent commits'}
           </h5>
-          <p>
-            Recent timeline of commits
-          </p>
           <div id="frame">
-            {this.state.coms? <Line
+            {this.state.commitAuthors? <Line
               data={comsdata}
               options={{
                 elements: {
@@ -337,9 +414,59 @@ class App extends Component {
                 },
                 scales: {
                   x: {
+                    title: {
+                      display:true
+                    },
                     type: 'time',
                     time: {
                       unit: ''
+                    }
+                  },
+                  y: {
+                    title: {
+                      display: true
+                    }
+                  }
+                }
+              }}
+            /> : 'No commits found'}
+          </div>
+          <h5>
+            Side-by-side
+          </h5>
+          <div id="frame">
+            {this.state.commitAuthors? <Line
+              data={sbsd}
+              options={{
+                elements: {
+                  point: {
+                    radius: 0
+                  }
+                },
+                plugins: {
+                  title: {
+                    display: false
+                  },
+                  legend: {
+                    display: false
+                  }
+                },
+                interaction: {
+                  intersect: false,
+                },
+                scales: {
+                  x: {
+                    title: {
+                      display:true
+                    },
+                    type: 'time',
+                    time: {
+                      unit: ''
+                    }
+                  },
+                  y: {
+                    title: {
+                      display: true
                     }
                   }
                 }
