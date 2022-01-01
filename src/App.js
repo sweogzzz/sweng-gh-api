@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {Octokit} from '@octokit/rest';
+//import GitHub from 'github-api';
+//import axios from 'axios'
 import 'date-fns';
 import 'chartjs-adapter-date-fns';
 import {
@@ -39,6 +41,33 @@ class App extends Component {
     const ok = new Octokit({
       auth: token
     })
+
+    /*const gh = new GitHub({
+      username: un
+      password: pw/token
+      /token: token
+    })
+
+    var me = gh.getUser();
+    var owen = gh.getUser('sweogzzz');
+
+    var repo = gh.getRepo(user, repo)
+    .listCommits(function(err,repo) {
+      this.setState({repo:repo})
+    })
+    */
+
+    /*
+    axios.get('api.github.com/users/{user}')
+    .then(function (response) {
+      this.setState({repo:response.data})
+    }).catch(function (error) {
+      console.log(error)
+    }).then(function () {
+      console.log('thunderbirds')
+      console.log('are go')
+    })
+    */
 
     this.setState({
       repo: '',
