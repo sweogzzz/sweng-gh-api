@@ -83,7 +83,7 @@ The app is viewable at `http://localhost:3000`
 
 How the web app looks when started.
 
-[screenshot](screenshots/screen1.png)
+![screenshot](screenshots/screen1.png)
 
 ### Screenshot 2
 
