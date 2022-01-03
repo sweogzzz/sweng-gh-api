@@ -10,7 +10,7 @@ Dependencies:
 
 Required: nodejs/npm and api token.
 
-### Authentication
+### Authentication (REQUIRED)
 
 1. Create a blank file `.env` in the root.
 2. Write inside `REACT_APP_SECRET=yourtokenhere`
