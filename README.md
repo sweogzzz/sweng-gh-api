@@ -82,6 +82,10 @@ The app is viewable at `http://localhost:3000`
 
 ## Demo
 
+### Latest screenshot
+
+![screenshot](screenshots/screen24.png)
+
 ### Screenshot 1
 
 How the web app looks when started.
@@ -226,4 +230,5 @@ Added new features:
 [screenshot](./screenshots/screen20.png)\
 [screenshot](./screenshots/screen21.png)\
 [screenshot](./screenshots/screen22.png)\
-[screenshot](./screenshots/screen23.png)
+[screenshot](./screenshots/screen23.png)\
+[screenshot](./screenshots/screen24.png)
