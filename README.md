@@ -89,7 +89,9 @@ The app is viewable at `http://localhost:3000`
 ![screenshot](screenshots/screen25.png)
 
 `coding-horror` contributes to\
-`coding-horror/basic-computer-games`
+`coding-horror/basic-computer-games`\
+(Filtered out deletions from issues in screenshot)\
+(This can be done by clicking on "deletions" in the legend)
 ![screenshot](screenshots/screen24.png)
 
 ### Screenshot 1
