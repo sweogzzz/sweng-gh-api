@@ -82,8 +82,14 @@ The app is viewable at `http://localhost:3000`
 
 ## Demo
 
-### Latest screenshot
+### Latest screenshots
 
+`adamhannigan` contributes to\
+`sunflower-farmers/sunflower-farmers`
+![screenshot](screenshots/screen25.png)
+
+`coding-horror` contributes to\
+`coding-horror/basic-computer-games`
 ![screenshot](screenshots/screen24.png)
 
 ### Screenshot 1
