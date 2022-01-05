@@ -64,11 +64,14 @@ $ docker-compose up
 ```
 
 #### Scripts instructions:
+
 1. `quickstart.bat` for easy startup
     - Open in file explorer on Windows
+    - (Windows) make sure docker is running
     - `quickstart.bat` in cmd
 2. `quickstart.sh` for easy startup
     - Open in file explorer on Windows
+    - (Windows) make sure docker is running
     - `./quickstart.sh` in bash terminal
     - `./quickstart.sh` in powershell
 3. `CTRL+C` to exit
